@@ -1,0 +1,39 @@
+﻿@model List<Player>
+
+@{
+    ViewData["Title"] = "Список футболистов";
+}
+
+<h1>Список футболистов</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Пол</th>
+        <th>Дата рождения</th>
+        <th>Команда</th>
+        <th>Страна</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var player in Model)
+    {
+        <tr>
+            <td>@player.Name</td>
+            <td>@player.Surname</td>
+            <td>@player.Gender</td>
+            <td>@player.BirthDate</td>
+            <td>@player.TeamName</td>
+            <td>@player.Country</td>
+            <td>
+                <a href="@Url.Action("Edit", "Home", new { id = player.Id })">Редактировать</a>
+            </td>
+
+        </tr>
+    }
+    </tbody>
+</table>
+<a href="@Url.Action("Create", "Home")" class="btn btn-primary">Добавить нового игрока</a>

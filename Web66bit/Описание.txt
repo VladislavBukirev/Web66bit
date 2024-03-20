@@ -1,0 +1,22 @@
+Версия SDK - 6
+Версия Npgsql.EntityFrameworkCore.PostgreSQL - 7.0.0
+
+Название БД - football_players_db
+
+Скрипт создания таблицы:
+CREATE TABLE IF NOT EXISTS football_players.players
+(
+    "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "Name" text COLLATE pg_catalog."default" NOT NULL,
+    "Surname" text COLLATE pg_catalog."default" NOT NULL,
+    "Gender" text COLLATE pg_catalog."default" NOT NULL,
+    "BirthDate" text COLLATE pg_catalog."default" NOT NULL,
+    "TeamName" text COLLATE pg_catalog."default" NOT NULL,
+    "Country" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Players_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS football_players.players
+    OWNER to postgres;

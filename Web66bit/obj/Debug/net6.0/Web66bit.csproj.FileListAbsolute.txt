@@ -39,3 +39,4 @@ C:\Users\79521\Desktop\git-actually\helloapp-black\Web66bit\Web66bit\obj\Debug\n
 C:\Users\79521\Desktop\git-actually\helloapp-black\Web66bit\Web66bit\obj\Debug\net6.0\Web66bit.pdb
 C:\Users\79521\Desktop\git-actually\helloapp-black\Web66bit\Web66bit\obj\Debug\net6.0\Web66bit.genruntimeconfig.cache
 C:\Users\79521\Desktop\git-actually\helloapp-black\Web66bit\Web66bit\obj\Debug\net6.0\ref\Web66bit.dll
+C:\Users\79521\Desktop\git-actually\helloapp-black\Web66bit\Web66bit\bin\Debug\net6.0\appsettings_example.json

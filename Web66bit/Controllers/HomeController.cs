@@ -7,12 +7,9 @@ namespace Web66bit.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly PlayersContext _context;
-
-        public HomeController(ILogger<HomeController> logger, PlayersContext context)
+        public HomeController(PlayersContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
@@ -27,9 +24,7 @@ namespace Web66bit.Controllers
         {
             var player = _context.players.Find(id);
             if (player == null)
-            {
                 return NotFound();
-            }
 
             return View(player);
         }
@@ -46,7 +41,20 @@ namespace Web66bit.Controllers
             {
                 try
                 {
-                    _context.Entry(player).State = EntityState.Modified;
+                    var existingPlayer = _context.players.Find(id);
+                    if (existingPlayer == null)
+                    {
+                        return NotFound();
+                    }
+                    
+                    existingPlayer.Name = player.Name;
+                    existingPlayer.Surname = player.Surname;
+                    existingPlayer.Gender = player.Gender;
+                    existingPlayer.BirthDate = player.BirthDate;
+                    existingPlayer.TeamName = player.TeamName;
+                    existingPlayer.Country = player.Country; 
+
+                    _context.Entry(existingPlayer).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -55,19 +63,18 @@ namespace Web66bit.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(player);
         }
-        
+
         // Действие для добавления игрока
         public IActionResult Create()
         {
+            var teams = _context.players.Select(t => t.TeamName).Distinct().ToList();
+            ViewBag.Teams = teams;
             return View();
         }
         [HttpPost]
@@ -80,11 +87,6 @@ namespace Web66bit.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(player);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
